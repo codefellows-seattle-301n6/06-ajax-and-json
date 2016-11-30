@@ -61,18 +61,19 @@ Article.fetchAll = function() {
       1.a Load our json data
       1.b Store that data in localStorage so that we can skip the server call next time,
       1.c And then render the index page.*/
-      $.getJSON('../../data/hackerIpsum.json').then(
+      $.getJSON('../../data/hackerIpsum.json1').then(
       function(data) {
         console.log(data);
       },
       function() {
-
-      });
-      // localStorage.setItem();
+        //console.error('This did not work');
+        console.log('This did not work');
+        }
+      );
       articleView.renderIndexPage();
       console.log('the else has executed');
-  }
-};
+    };
+  };
 
 /* Great work so far! STRETCH GOAL TIME!? Refactor your fetchAll above, or
    get some additional typing practice below. Our main goal in this part of the
