@@ -17,7 +17,7 @@ function Article (opts) {
 Article.allArticles = [];
 
 Article.prototype.toHtml = function(scriptTemplateId) {
-  var template = Handlebars.compile($(scriptTemplateId).text());
+  var template = Handlebars.compile($(scriptTemplateId).html());
   this.daysAgo = parseInt((new Date() - new Date(this.publishedOn))/60/60/24/1000);
   this.publishStatus = this.publishedOn ? 'published ' + this.daysAgo + ' days ago' : '(draft)';
   this.body = marked(this.body);
@@ -57,17 +57,22 @@ Article.fetchAll = function() {
       1.a Load our json data
       1.b Store that data in localStorage so that we can skip the server call next time,
       1.c And then render the index page.*/
-    $.getJSON('data/hackerIpsum.json', function(data){
+    $.getJSON('data/hackerIpsum.json')
+      .done(function(data){
+      console.log(data);
       localStorage.setItem('hackerIpsumObjects', JSON.stringify(data));
       Article.loadAll(data);
-      Article.allArticles.forEach(function(element){
-        element.toHtml('#article-template');
+      Article.allArticles.forEach(function(obj){
+        $('#articles').append(obj.toHtml('#article-template'));
+        });
       });
-    })
   }
 };
 
 Article.fetchAll();
+
+
+
 
 /* Great work so far! STRETCH GOAL TIME!? Refactor your fetchAll above, or
    get some additional typing practice below. Our main goal in this part of the
