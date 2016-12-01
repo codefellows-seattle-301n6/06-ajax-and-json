@@ -51,6 +51,7 @@ Article.fetchAll = function() {
     2. Then we can render the index page.  */
     var localStorageData = JSON.parse(localStorage.getItem('hackerIpsumObjects'));
     this.loadAll(localStorageData);
+    articleView.renderIndexPage();
   } else {
     /* Without our localStorage in memory, we need to:
     1. Retrieve our JSON file with $.getJSON
@@ -61,6 +62,7 @@ Article.fetchAll = function() {
     .done(function(data){
       localStorage.setItem('hackerIpsumObjects', JSON.stringify(data));
       this.loadAll(data);
+      articleView.renderIndexPage();
     });
   }
 };
