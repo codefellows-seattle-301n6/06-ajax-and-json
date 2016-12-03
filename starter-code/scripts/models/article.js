@@ -50,7 +50,7 @@ Article.fetchAll = function() {
     1. We can process and load it,
     2. Then we can render the index page.  */
     var localStorageData = JSON.parse(localStorage.getItem('hackerIpsumObjects'));
-    this.loadAll(localStorageData);
+    Article.loadAll(localStorageData);
     articleView.renderIndexPage();
   } else {
     /* Without our localStorage in memory, we need to:
@@ -61,16 +61,11 @@ Article.fetchAll = function() {
     $.getJSON('data/hackerIpsum.json')
     .done(function(data){
       localStorage.setItem('hackerIpsumObjects', JSON.stringify(data));
-      this.loadAll(data);
+      Article.loadAll(data);
       articleView.renderIndexPage();
     });
   }
 };
-
-Article.fetchAll();
-
-
-
 
 /* Great work so far! STRETCH GOAL TIME!? Refactor your fetchAll above, or
    get some additional typing practice below. Our main goal in this part of the
