@@ -49,16 +49,34 @@ Article.fetchAll = function() {
     /* When our data is already in localStorage:
     1. We can process and load it,
     2. Then we can render the index page.  */
+    var ipsum = JSON.parse(localStorage.getItem('hackerIpsum'));
+    Article.loadAll(ipsum);
+    // for (var i of ipsum) {
+    //   new Article(i.keys);
+    //   console.log('the if has executed');
+    // }
+    articleView.renderIndexPage();
   } else {
     /* Without our localStorage in memory, we need to:
     1. Retrieve our JSON file with $.getJSON
       1.a Load our json data
       1.b Store that data in localStorage so that we can skip the server call next time,
       1.c And then render the index page.*/
-  }
-};
-
-
+      $.getJSON('../../data/hackerIpsum.json').then(
+        //parses data for us
+      function(data) {
+        localStorage.setItem('hackerIpsum',JSON.stringify(data));
+        //localStorage only takes JSON
+        Article.loadAll(data);
+        articleView.renderIndexPage();
+      },
+      function() {
+        //console.error('This did not work');
+        console.error('This did not work');
+        }
+      );
+    };
+  };
 
 /* Great work so far! STRETCH GOAL TIME!? Refactor your fetchAll above, or
    get some additional typing practice below. Our main goal in this part of the
