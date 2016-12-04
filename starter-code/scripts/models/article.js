@@ -50,6 +50,7 @@ Article.fetchAll = function() {
     1. We can process and load it,
     2. Then we can render the index page.  */
     var ipsum = JSON.parse(localStorage.getItem('hackerIpsum'));
+    Article.loadAll(ipsum);
     // for (var i of ipsum) {
     //   new Article(i.keys);
     //   console.log('the if has executed');
@@ -61,17 +62,19 @@ Article.fetchAll = function() {
       1.a Load our json data
       1.b Store that data in localStorage so that we can skip the server call next time,
       1.c And then render the index page.*/
-      $.getJSON('../../data/hackerIpsum.json1').then(
+      $.getJSON('../../data/hackerIpsum.json').then(
+        //parses data for us
       function(data) {
-        console.log(data);
+        localStorage.setItem('hackerIpsum',JSON.stringify(data));
+        //localStorage only takes JSON
+        Article.loadAll(data);
+        articleView.renderIndexPage();
       },
       function() {
         //console.error('This did not work');
-        console.log('This did not work');
+        console.error('This did not work');
         }
       );
-      articleView.renderIndexPage();
-      console.log('the else has executed');
     };
   };
 
